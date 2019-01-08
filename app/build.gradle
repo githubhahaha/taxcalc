@@ -37,6 +37,6 @@ dependencies {
 
     // if Java use this. If using Kotlin do NOT use this.
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:4.2.4"
-    compile "com.github.Raizlabs.DBFlow:dbflow-core:4.2.4"
-    compile "com.github.Raizlabs.DBFlow:dbflow:4.2.4"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:4.2.4"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:4.2.4"
 }

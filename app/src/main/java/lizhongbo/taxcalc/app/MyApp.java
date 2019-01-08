@@ -21,7 +21,7 @@ public class MyApp extends Application {
          FlowManager.init(this);
          //读取起征点
          SharedPreferences sharedPreferences = getSharedPreferences(FILE_NAME, MODE_PRIVATE);
-         TaxRateManager.startTaxIncome = sharedPreferences.getInt(KEY_START_TAX, 3500);
+         TaxRateManager.startTaxIncome = sharedPreferences.getInt(KEY_START_TAX, 5000);
          /*第一次启动APP时，如果税率表为空，则添加默认税率到数据库*/
          List<TaxRate> taxRates = SQLite.select().from(TaxRate.class).queryList();
          if(taxRates == null || taxRates .size() == 0){
