@@ -13,26 +13,26 @@ import lizhongbo.taxcalc.R;
 import lizhongbo.taxcalc.beans.TaxRate;
 
 public class TaxRateAdapter extends BaseAdapter {
-    private List<TaxRate> taxRateList ;
+    private TaxRate[] taxRateList ;
     private Context mContext;
 
     public TaxRateAdapter(Context context){
         mContext = context;
     }
     //设置税率
-    public void setTaxRateList(List<TaxRate> taxRateList) {
+    public void setTaxRateList(TaxRate[] taxRateList) {
         this.taxRateList = taxRateList;
         notifyDataSetChanged();
     }
 
-    @Override
+   @Override
     public int getCount() {
-        return taxRateList != null ? taxRateList.size(): 0;
+        return taxRateList != null ? taxRateList.length: 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return taxRateList != null ? taxRateList.get(position): null;
+        return taxRateList != null ? taxRateList[position]: null;
     }
 
     @Override
@@ -55,16 +55,17 @@ public class TaxRateAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        TaxRate taxRate = taxRateList.get(position);
+        TaxRate taxRate = taxRateList[position];
         viewHolder.levelTextView.setText(Integer.toString(taxRate.level));
         viewHolder.startTextView.setText(Integer.toString(taxRate.start));
         viewHolder.endTextView.setText(Integer.toString(taxRate.end));
         if(taxRate.end == Integer.MAX_VALUE){
             viewHolder.endTextView.setText("");
             viewHolder.startTextView.setTextSize(15);
-            viewHolder.startTextView.setText(Integer.toString(taxRate.start) + " 以上");
+            viewHolder.startTextView.setText(Integer.toString(taxRate.start));
+            viewHolder.endTextView.setText("~");
         }
-        viewHolder.taxRateTextView.setText(Double.toString(taxRate.taxRate));
+        viewHolder.taxRateTextView.setText(Integer.toString((int) (taxRate.taxRate*100))+ '%');
         viewHolder.quickDeductionTextView.setText(Integer.toString(taxRate.quickDeduction));
         return convertView;
     }

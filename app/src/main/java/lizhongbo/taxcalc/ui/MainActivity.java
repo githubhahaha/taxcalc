@@ -6,12 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import lizhongbo.taxcalc.beans.History;
 import lizhongbo.taxcalc.R;
 import lizhongbo.taxcalc.TaxRateManager;
 
@@ -29,9 +27,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         Button calc = findViewById(R.id.calcBtn);
         calc.setOnClickListener(this);
-
-        Button history = findViewById(R.id.historyBtn);
-        history.setOnClickListener(this);
 
         Button modifyTax = findViewById(R.id.modifyTaxBtn);
         modifyTax.setOnClickListener(this);
@@ -51,17 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mTaxTextView.setText(Double.toString(tax));
                     double realIncome = beforeTaxIncome - tax;
                     mRealIncomeTextView.setText(Double.toString(realIncome));
-                    //插入计算历史记录
-                    History history = new History(beforeTaxIncome, tax);
-                    history.insert();
                 }
             }
             break;
-            case R.id.historyBtn: {
-                Intent intent = new Intent(this, HistoryActivity.class);
-                startActivity(intent);
-            }
-            break;
+
             case R.id.modifyTaxBtn:{
                 Intent intent = new Intent(this, TaxRateActivity.class);
                 startActivity(intent);
