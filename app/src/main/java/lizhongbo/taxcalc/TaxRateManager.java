@@ -29,7 +29,7 @@ public class TaxRateManager {
      */
     public static double CalcTaxRate(int beforeTaxIncome){
         //List<TaxRate> taxRates = SQLite.select().from(TaxRate.class).queryList();
-        int taxIncome = beforeTaxIncome - startTaxIncome;
+        int taxIncome = beforeTaxIncome - startTaxIncome ;
         for(TaxRate taxRate:taxRates){
             if(taxIncome >= taxRate.start && taxIncome <= taxRate.end){
                 return taxIncome * taxRate.taxRate - taxRate.quickDeduction;

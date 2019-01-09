@@ -16,8 +16,13 @@ import lizhongbo.taxcalc.TaxRateManager;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public EditText mBeforeTaxIncome;
+    public EditText mInsurance;
+    public EditText mSdeduction;
     public TextView mTaxTextView;
     public TextView mRealIncomeTextView;
+    int insurance=0;
+    int beforeTaxIncome=0;
+    int sDeduction=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +33,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button calc = findViewById(R.id.calcBtn);
         calc.setOnClickListener(this);
 
-        Button modifyTax = findViewById(R.id.modifyTaxBtn);
-        modifyTax.setOnClickListener(this);
+        Button checkTax = findViewById(R.id.checkTaxBtn);
+        checkTax.setOnClickListener(this);
 
         mBeforeTaxIncome = findViewById(R.id.beforeIncomeEdit);
+        mInsurance = findViewById(R.id.insurancEdit);
+        mSdeduction = findViewById(R.id.SdeductionEdit);
         mTaxTextView = findViewById(R.id.TaxPayableTextView);
         mRealIncomeTextView = findViewById(R.id.RealPayTextView);
     }
@@ -40,8 +47,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.calcBtn: {
+                if (!TextUtils.isEmpty(mInsurance.getText().toString())) {
+                    insurance = Integer.parseInt(mInsurance.getText().toString());
+                }
+                if (!TextUtils.isEmpty(mSdeduction.getText().toString())) {
+                    sDeduction = Integer.parseInt(mSdeduction.getText().toString());
+                }
                 if (!TextUtils.isEmpty(mBeforeTaxIncome.getText().toString())) {
-                    int beforeTaxIncome = Integer.parseInt(mBeforeTaxIncome.getText().toString());
+                    beforeTaxIncome = Integer.parseInt(mBeforeTaxIncome.getText().toString());
+                    beforeTaxIncome = beforeTaxIncome - insurance - sDeduction;
                     double tax = TaxRateManager.CalcTaxRate(beforeTaxIncome);
                     mTaxTextView.setText(Double.toString(tax));
                     double realIncome = beforeTaxIncome - tax;
@@ -50,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             break;
 
-            case R.id.modifyTaxBtn:{
+            case R.id.checkTaxBtn:{
                 Intent intent = new Intent(this, TaxRateActivity.class);
                 startActivity(intent);
             }
